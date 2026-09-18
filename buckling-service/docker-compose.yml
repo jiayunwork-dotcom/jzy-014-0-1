@@ -1,0 +1,15 @@
+services:
+  buckling-service:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # 默认 SQLite 落盘到挂载卷；切外部库时改这里即可，例如：
+      # DATABASE_URL: postgresql+psycopg://user:pass@db:5432/buckling
+      DATABASE_URL: sqlite:////data/buckling.db
+    volumes:
+      - buckling-data:/data
+    restart: unless-stopped
+
+volumes:
+  buckling-data:
